@@ -14,21 +14,21 @@
 TxResponse TxHelper::Parse(size_t len){
 
   TxResponse response;
-
   int buffer[4] = { 0, 0, 0, 0 };
-
-  // zero out the read buffer
   int counterPal = 0;
-  memset(buffer, 0, sizeof(buffer));
 
   // read the data
-  while (1 < Wire.available()) {
+  while (Wire.available()) {
     if (counterPal < 4) {
       buffer[counterPal++] = Wire.read();
+    } else {
+      // if Rx buffer has more than 4 bytes, flush the rest
+      while (Wire.available()) {
+        Wire.read();
+      }
+      break;
     }
   }
-  // get the last byte
-  buffer[counterPal] = Wire.read();
 
   uint16_t temp = (uint16_t)((buffer[2] << 8) + (buffer[3]));
   int16_t temp2 = (int16_t)temp;
