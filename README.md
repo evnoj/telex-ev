@@ -1,3 +1,6 @@
+# fork features
+see `docs.md`
+
 # TELEX EURORACK EXPANDERS
 
 The TELEX are a family of eurorack expanders that were initially designed to interface with the Monome Teletype to provide additional inputs and outputs. Utilizing the `II` bus (i2c) and having a flexible command set, there is no reason that these modules couldn't connect and extend other Monome Eurorack devices (even non-Eurorack devices that support II like the Aleph) or your own hardware projects.
