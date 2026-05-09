@@ -211,13 +211,25 @@ void requestEvent() {
       shiftReady = (uint16_t)quantizedNote[activeInput];
       interrupts();
       break;
+    case 3: {
+      // TI_ALL: dump all 8 inputs as 16 bytes (8 × s16, big-endian)
+      uint16_t vals[8];
+      noInterrupts();
+      for (int i = 0; i < 8; i++) vals[i] = (uint16_t)inputValue[i];
+      interrupts();
+      for (int i = 0; i < 8; i++) {
+        Wire.write(vals[i] >> 8);
+        Wire.write(vals[i] & 255);
+      }
+      return;
+    }
     default:
       noInterrupts();
       shiftReady = (uint16_t)inputValue[activeInput];
       interrupts();
       break;
   }
-  
+
 #ifdef DEBUG
   Serial.printf("delivering: %d; value: %d [%d]\n", activeInput, inputValue[activeInput], shiftReady);
 #endif

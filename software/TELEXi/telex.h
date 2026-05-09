@@ -128,4 +128,9 @@
 #define TI_STORE 0x22
 #define TI_RESET 0x23
 
+// experimental: read all 8 inputs (4 PARAM + 4 IN) in one transaction.
+// wire byte 0x18 → port=0, mode=3; mode 3 triggers the 16-byte dump in requestEvent
+// regardless of port.
+#define TI_ALL 0x18
+
 #endif
